@@ -1,5 +1,6 @@
 <?php
 //application/views/templates/header.php
+?>
 
 <html>
         <head>
