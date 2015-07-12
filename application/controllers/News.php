@@ -1,6 +1,5 @@
 <?php
 //News.php
-
 class News extends CI_Controller {
 
         public function __construct()
@@ -9,30 +8,29 @@ class News extends CI_Controller {
                 $this->load->model('news_model');
         }//end constructor
 
-        public function index()
-        {
+    public function index()
+    {
             $data['news'] = $this->news_model->get_news();
             $data['title'] = 'News archive';
 
             $this->load->view('templates/header', $data);
             $this->load->view('news/index', $data);
             $this->load->view('templates/footer');
-        }//end index
+    }//end index()
 
-        public function view($slug = NULL)
+    public function view($slug = NULL)
+    {
+        $data['news_item'] = $this->news_model->get_news($slug);
+
+        if (empty($data['news_item']))
         {
-            $data['news_item'] = $this->news_model->get_news($slug);
+                show_404();
+        }
 
-            if (empty($data['news_item']))
-                {
-                    show_404();
-                }
+        $data['title'] = $data['news_item']['title'];
 
-            $data['title'] = $data['news_item']['title'];
-
-            $this->load->view('templates/header', $data);
-            $this->load->view('news/view', $data);
-            $this->load->view('templates/footer');
-        }//end view
-    
+        $this->load->view('templates/header', $data);
+        $this->load->view('news/view', $data);
+        $this->load->view('templates/footer');
+    }//end view()
 }//end News

@@ -3,13 +3,14 @@
 
 class News_model extends CI_Model {
 
-        public function __construct()
-        {
-                $this->load->database();
-        }//end constructor
+    public function __construct()
+    {
+            $this->load->database();
+    }//end constructor
+    
     
     public function get_news($slug = FALSE)
-        {
+    {
             if ($slug === FALSE)
             {
                     $query = $this->db->get('news');
@@ -18,6 +19,6 @@ class News_model extends CI_Model {
 
             $query = $this->db->get_where('news', array('slug' => $slug));
             return $query->row_array();
-        }//end get_news()
-    
+    }//end get_news()
 }//end News_model
+
